@@ -1,61 +1,96 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        bleu-test
-      </h1>
-      <h2 class="subtitle">{{ $t('welcome') }} front-end da Bleu</h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+  <section class="container">
+    <header class="container__header">
+      <h3 class="container__header--title">{{ $t('page.compare.title') }}</h3>
+      <p
+        class="container__header--caption"
+        v-html="$t('page.compare.caption')"
+      ></p>
+    </header>
+    <section class="container__actions">
+      <label class="container__actions__button">
+        <input
+          class="container__actions__button--input"
+          type="tel"
+          inputmode="decimal"
+        />
+        <select class="container__actions__button--select">
+          <option :value="$t('page.compare.buttons.brl')">{{
+            $t('page.compare.buttons.brl')
+          }}</option>
+          <option :value="$t('page.compare.buttons.usd')">{{
+            $t('page.compare.buttons.usd')
+          }}</option>
+        </select>
+      </label>
+      <label class="container__actions__button">
+        <input
+          class="container__actions__button--input"
+          type="tel"
+          inputmode="decimal"
+        />
+        <select class="container__actions__button--select">
+          <option :value="$t('page.compare.buttons.usd')">{{
+            $t('page.compare.buttons.usd')
+          }}</option>
+          <option :value="$t('page.compare.buttons.brl')">{{
+            $t('page.compare.buttons.brl')
+          }}</option>
+        </select>
+      </label>
+    </section>
+  </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
-export default {
-  components: {
-    Logo,
-  },
-}
+export default {}
 </script>
-
-<style lang="stylus">
+<style lang="stylus" scoped>
 .container
-  margin 0 auto
-  min-height 100vh
   display flex
   justify-content center
   align-items center
-  text-align center
+  flex-direction column
 
-.title
-  font-family 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif
-  display block
-  font-weight 300
-  font-size 100px
-  color #35495e
-  letter-spacing 1px
+  &__header
+    text-align justify
+    max-width 600px
+    margin 20px
 
-.subtitle
-  font-weight 300
-  font-size 42px
-  color #526488
-  word-spacing 5px
-  padding-bottom 15px
+    &--title
+      text-align center
+      font-size 2rem
+      font-weight 600
+      color #003358
 
-.links
-  padding-top 15px
+    &--caption
+      font-weight 400
+      color #585858
+
+  &__actions
+    &__button
+      max-width 200px
+      width 100%
+      display inline-block
+      border 1px solid #585858
+      padding 5px
+      border-radius 10px
+
+      &--input
+        width 55%
+        border none
+        outline none
+        text-align right
+        font-size 1rem
+
+      &--select
+        width 38%
+        background transparent
+        padding 5px
+        border none
+        border-left 2px solid #ddd
+        outline none
+        font-weight bold
+        color #003358
+        font-size 1.2rem
 </style>
