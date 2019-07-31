@@ -2,6 +2,13 @@
 
 > Teste front-end da Bleu
 
+### [Link do projeto online](https://bleutest.kevinmartin.app)
+
+* Responsivo
+* Api de cotação funcionando
+* Multi-linguagem (en - pt)
+
+
 ## Build Setup
 
 ``` bash
