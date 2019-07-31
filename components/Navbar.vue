@@ -26,19 +26,22 @@
           {{ $t('navbar.buttons.login') }}
         </button>
         <div class="navbar__container__menu--select">
-          <img
-            width="40"
-            :src="require('~/assets/flags/bra.png')"
-            alt=""
-            srcset=""
-          />
+          <v-select v-model="select" :options="selectOptions">
+            <template #option="option">
+              <img width="30" :src="option.value" :alt="option.text" />
+              {{ option.text }}
+            </template>
+            <template #selected-option="option">
+              <img width="30" :src="option.value" :alt="option.value" />
+            </template>
+          </v-select>
         </div>
       </div>
       <div v-else class="navbar__container__mobile">
         <div
-          @click="$store.dispatch('GET_USD_CURRENCY')"
           role="button"
           class="navbar__container__mobile--menu"
+          @click="openMenuMobile = !openMenuMobile"
         >
           <img
             width="40"
@@ -58,13 +61,33 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  components: {
+    VSelect: () => import('vue-select'),
+  },
   data: () => ({
     openMenuMobile: false,
+    select: '',
+    selectOptions: [
+      {
+        locale: 'pt',
+        text: 'Português',
+        value: require('~/assets/flags/bra.png'),
+      },
+      {
+        locale: 'en',
+        text: 'English',
+        value: require('~/assets/flags/usa.png'),
+      },
+    ],
   }),
   computed: {
     ...mapGetters(['IS_MOBILE']),
   },
-  methods: {},
+  watch: {
+    select(value) {
+      window.location.pathname = value.locale === 'en' ? value.locale : ''
+    },
+  },
 }
 </script>
 <style lang="stylus" scoped>

@@ -2,27 +2,26 @@
   <section class="container">
     <header class="container__header">
       <h3 class="container__header--title">{{ $t('page.compare.title') }}</h3>
-      <p
-        class="container__header--caption"
-        v-html="$t('page.compare.caption')"
-      ></p>
+      <p class="container__header--caption">{{ $t('page.compare.caption') }}</p>
     </header>
     <section class="container__actions">
       <bleu-button
-        currency-type="BRL"
-        @changeCurrencyValue="pega"
         :currency-value="myCurrency"
+        :currency-type="currencyType"
+        @changeCurrencyType="event => (currencyType = event)"
+        @changeCurrencyValue="pega"
       />
       <bleu-button
-        :currency-type="currencyConvertType"
+        :currency-type="typeConvert"
         :desactive="true"
-        currency-value="400"
+        :currency-value="valueConverted"
       />
     </section>
   </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   components: {
     BleuButton: () => import('@/components/Button'),
@@ -30,19 +29,30 @@ export default {
   data: () => ({
     myCurrency: 1,
     convertCurrency: '',
-    currencyConvertType: 'USD',
+    currencyType: 'USD',
   }),
+  computed: {
+    ...mapGetters(['BRL_TO_USD', 'USD_TO_BRL']),
+    valueConverted() {
+      return this.currencyType === 'USD' ? this.BRL_TO_USD : this.USD_TO_BRL
+    },
+    typeConvert() {
+      return this.currencyType === 'USD' ? 'BRL' : 'USD'
+    },
+  },
   asyncData({ req, store }) {
     store.dispatch(
       'SET_IS_MOBILE',
       req.headers['user-agent'].includes('Mobile'),
     )
   },
-  computed: {},
+  mounted() {
+    this.$store.dispatch('GET_USD_CURRENCY')
+  },
   methods: {
     pega(a) {
-      /* eslint-disable */
       this.myCurrency = +a
+      this.$store.dispatch('SET_MY_CURRECY', +a)
     },
   },
 }

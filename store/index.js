@@ -11,6 +11,9 @@ export const mutations = {
   MUTATE_IS_MOBILE(state, data) {
     state.isMobile = data
   },
+  SET_MY_CURRECY(state, data) {
+    state.currency.myInput = data
+  },
   SET_CURRENCY(
     state,
     {
@@ -33,6 +36,9 @@ export const actions = {
     console.log(currency)
     commit('SET_CURRENCY', currency)
   },
+  SET_MY_CURRECY({ commit }, data) {
+    commit('SET_MY_CURRECY', data)
+  },
 }
 
 export const getters = {
@@ -41,7 +47,7 @@ export const getters = {
     (
       +state.currency.myInput * +state.currency.usdBid.replace(/,/g, '.')
     ).toFixed(4),
-  BRL_TO_US: state =>
+  BRL_TO_USD: state =>
     (
       +state.currency.myInput / +state.currency.usdBid.replace(/,/g, '.')
     ).toFixed(4),

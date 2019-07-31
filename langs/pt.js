@@ -20,8 +20,8 @@ export default {
   },
   page: {
     compare: {
-      title: 'USD Best Price in Brazil',
-      caption: `Compare and find in realtime the best effective prices in Brazil's top USD exchanges, considering fees. <i>Click on the exchange row</i> to view operation details.`,
+      title: 'Melhor Preço do Dólar no Brasil',
+      caption: `Compare e encontre em tempo real os melhores preços efetivos nas principais bolsas de valores do Brasil, considerando as taxas. <i> Clique na linha de troca </ i> para visualizar os detalhes da operação.`,
       buttons: {
         brl: 'BRL',
         usd: 'USD',

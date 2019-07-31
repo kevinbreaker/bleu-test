@@ -15,6 +15,10 @@ export default {
       },
     ],
     link: [
+      {
+        rel: 'stylesheet',
+        href: 'https://unpkg.com/vue-select@3.0.0/dist/vue-select.css',
+      },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
@@ -49,7 +53,8 @@ export default {
     [
       'nuxt-i18n',
       {
-        parsePages: true,
+        loadLanguagesAsync: true,
+        parsePages: false,
         detectBrowserLanguage: {
           useCookie: true,
           cookieKey: 'i18n_redirected',
@@ -68,12 +73,6 @@ export default {
             name: 'Português',
             iso: 'pt-BR',
             file: 'pt.js',
-          },
-          {
-            code: 'es',
-            name: 'español',
-            iso: 'es-ES',
-            file: 'es.js',
           },
         ],
         langDir: 'langs/',

@@ -2,7 +2,7 @@ export default {
   welcome: 'Welcome',
   navbar: {
     brand: {
-      bleutest: 'Bleytest',
+      bleutest: 'Bleutest',
     },
     bleutest_buy: 'Bleutest BUY',
     compare: 'Compare',

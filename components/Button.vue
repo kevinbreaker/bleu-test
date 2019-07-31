@@ -29,6 +29,7 @@ export default {
           attrs: {
             class: 'button--input',
             inputmode: 'numeric',
+            disabled: desactive,
           },
           domProps: {
             value: new Intl.NumberFormat('pt-BR', {
@@ -40,8 +41,10 @@ export default {
             input: event => {
               const novo = event.target.value
                 .split(',')[0]
-                .replace(/[R $ , ]/gi, '')
-              context.listeners.changeCurrencyValue(novo)
+                .replace(/[R $ U S , ]/gi, '')
+              if (!desactive) {
+                context.listeners.changeCurrencyValue(novo)
+              }
             },
           },
         }),
@@ -52,8 +55,15 @@ export default {
               class: 'button--select',
               disabled: desactive,
             },
+            domProps: {
+              value: currencyType,
+            },
+            on: {
+              change: event =>
+                context.listeners.changeCurrencyType(event.target.value),
+            },
           },
-          [h('option', {}, currencyType)],
+          [h('option', {}, 'BRL'), h('option', {}, 'USD')],
         ),
       ],
     )
@@ -77,6 +87,9 @@ export default {
     text-align right
     font-size 1rem
 
+    &[disabled]
+      background transparent
+
   &--select
     width 38%
     background transparent
@@ -87,6 +100,9 @@ export default {
     font-weight bold
     color #003358
     font-size 1.2rem
+
+    &[disabled]
+      color grey
 
   @media (max-width: 600px)
     margin 10px 0
