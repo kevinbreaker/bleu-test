@@ -8,42 +8,44 @@
       ></p>
     </header>
     <section class="container__actions">
-      <label class="container__actions__button">
-        <input
-          class="container__actions__button--input"
-          type="tel"
-          inputmode="decimal"
-        />
-        <select class="container__actions__button--select">
-          <option :value="$t('page.compare.buttons.brl')">{{
-            $t('page.compare.buttons.brl')
-          }}</option>
-          <option :value="$t('page.compare.buttons.usd')">{{
-            $t('page.compare.buttons.usd')
-          }}</option>
-        </select>
-      </label>
-      <label class="container__actions__button">
-        <input
-          class="container__actions__button--input"
-          type="tel"
-          inputmode="decimal"
-        />
-        <select class="container__actions__button--select">
-          <option :value="$t('page.compare.buttons.usd')">{{
-            $t('page.compare.buttons.usd')
-          }}</option>
-          <option :value="$t('page.compare.buttons.brl')">{{
-            $t('page.compare.buttons.brl')
-          }}</option>
-        </select>
-      </label>
+      <bleu-button
+        currency-type="BRL"
+        @changeCurrencyValue="pega"
+        :currency-value="myCurrency"
+      />
+      <bleu-button
+        :currency-type="currencyConvertType"
+        :desactive="true"
+        currency-value="400"
+      />
     </section>
   </section>
 </template>
 
 <script>
-export default {}
+export default {
+  components: {
+    BleuButton: () => import('@/components/Button'),
+  },
+  data: () => ({
+    myCurrency: 1,
+    convertCurrency: '',
+    currencyConvertType: 'USD',
+  }),
+  asyncData({ req, store }) {
+    store.dispatch(
+      'SET_IS_MOBILE',
+      req.headers['user-agent'].includes('Mobile'),
+    )
+  },
+  computed: {},
+  methods: {
+    pega(a) {
+      /* eslint-disable */
+      this.myCurrency = +a
+    },
+  },
+}
 </script>
 <style lang="stylus" scoped>
 .container
@@ -68,29 +70,34 @@ export default {}
       color #585858
 
   &__actions
-    &__button
-      max-width 200px
-      width 100%
-      display inline-block
-      border 1px solid #585858
-      padding 5px
-      border-radius 10px
+    // &__button
+    // max-width 200px
+    // width 100%
+    // display inline-block
+    // border 1px solid #585858
+    // padding 5px
+    // border-radius 10px
 
-      &--input
-        width 55%
-        border none
-        outline none
-        text-align right
-        font-size 1rem
+    // &--input
+    // width 55%
+    // border none
+    // outline none
+    // text-align right
+    // font-size 1rem
 
-      &--select
-        width 38%
-        background transparent
-        padding 5px
-        border none
-        border-left 2px solid #ddd
-        outline none
-        font-weight bold
-        color #003358
-        font-size 1.2rem
+    // &--select
+    // width 38%
+    // background transparent
+    // padding 5px
+    // border none
+    // border-left 2px solid #ddd
+    // outline none
+    // font-weight bold
+    // color #003358
+    // font-size 1.2rem
+    @media (max-width: 600px)
+      display flex
+      flex-direction column
+      justify-content center
+      align-items center
 </style>

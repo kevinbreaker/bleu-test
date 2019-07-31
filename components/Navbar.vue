@@ -6,7 +6,7 @@
           $t('navbar.brand.bleutest')
         }}</span>
       </div>
-      <div class="navbar__container__menu">
+      <div v-if="!IS_MOBILE" class="navbar__container__menu">
         <span class="navbar__container__menu--link">{{
           $t('navbar.bleutest_buy')
         }}</span>
@@ -26,7 +26,29 @@
           {{ $t('navbar.buttons.login') }}
         </button>
         <div class="navbar__container__menu--select">
-          <img height="30" src="~/assets/flags/bra.png" alt="" srcset="" />
+          <img
+            width="40"
+            :src="require('~/assets/flags/bra.png')"
+            alt=""
+            srcset=""
+          />
+        </div>
+      </div>
+      <div v-else class="navbar__container__mobile">
+        <div
+          @click="$store.dispatch('GET_USD_CURRENCY')"
+          role="button"
+          class="navbar__container__mobile--menu"
+        >
+          <img
+            width="40"
+            :src="
+              openMenuMobile
+                ? require('~/assets/icons/close.svg')
+                : require('~/assets/icons/menu.svg')
+            "
+            :alt="openMenuMobile ? 'close menu' : 'open menu'"
+          />
         </div>
       </div>
     </div>
@@ -34,7 +56,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  data: () => ({
+    openMenuMobile: false,
+  }),
+  computed: {
+    ...mapGetters(['IS_MOBILE']),
+  },
   methods: {},
 }
 </script>
@@ -47,12 +76,14 @@ export default {
   align-content center
 
   &__container
-    // background red
     padding 5px
     width 80%
     display flex
     justify-content space-around
     align-items center
+
+    @media (max-width: 600px)
+      justify-content space-between
 
     &__logo
       padding 10px
@@ -66,14 +97,13 @@ export default {
     &__menu
       width 80%
       padding 0 20px
-      // background orange
       justify-content flex-end
       align-items center
       display flex
 
       &--link
         font-weight 350
-        font-size .9rem
+        font-size 0.9rem
         padding 5px
         margin 0 5px
         color white
@@ -81,7 +111,7 @@ export default {
         display inline-block
 
         &:hover
-          transition all .2s
+          transition all 0.2s
           border-bottom 4px solid white
           font-weight bold
 
@@ -96,9 +126,14 @@ export default {
         width 80px
 
         &:hover
-          transition all .4s
+          transition all 0.4s
           background white
           color var(--primary)
+
+    &__mobile
+      &--menu
+        background transparent
+
 .active-link
   border-bottom 4px solid white
   font-weight bold
