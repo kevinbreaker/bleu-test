@@ -9,7 +9,7 @@
         :currency-value="myCurrency"
         :currency-type="currencyType"
         @changeCurrencyType="event => (currencyType = event)"
-        @changeCurrencyValue="pega"
+        @changeCurrencyValue="changeCurrencyValue"
       />
       <bleu-button
         :currency-type="typeConvert"
@@ -28,7 +28,6 @@ export default {
   },
   data: () => ({
     myCurrency: 1,
-    convertCurrency: '',
     currencyType: 'USD',
   }),
   computed: {
@@ -40,21 +39,22 @@ export default {
       return this.currencyType === 'USD' ? 'BRL' : 'USD'
     },
   },
-  asyncData({ req, store }) {
+  asyncData({ res, req, store }) {
     if (process.client) {
-      store.dispatch(
-        'SET_IS_MOBILE',
-        req.headers['user-agent'].includes('Mobile'),
-      )
+      console.log(' -> client <-')
     }
   },
-  mounted() {
+  beforeMount() {
     this.$store.dispatch('GET_USD_CURRENCY')
+    this.$store.dispatch(
+      'SET_IS_MOBILE',
+      navigator.userAgent.includes('Mobile'),
+    )
   },
   methods: {
-    pega(a) {
-      this.myCurrency = +a
-      this.$store.dispatch('SET_MY_CURRECY', +a)
+    changeCurrencyValue(value) {
+      this.myCurrency = +value
+      this.$store.dispatch('SET_MY_CURRECY', +value)
     },
   },
 }

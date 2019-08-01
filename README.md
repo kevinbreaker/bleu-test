@@ -8,6 +8,9 @@
 * Api de cotação funcionando
 * Multi-linguagem (en - pt)
 
+![Peformance screenshot](./screenshot/bleu-screenshot.png)
+Screenshot do audits
+
 
 ## Build Setup
 

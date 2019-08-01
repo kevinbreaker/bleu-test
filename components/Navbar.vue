@@ -125,7 +125,7 @@ export default {
       display flex
 
       &--link
-        font-weight 350
+        font-weight 410
         font-size 0.9rem
         padding 5px
         margin 0 5px
