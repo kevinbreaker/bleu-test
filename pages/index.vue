@@ -41,10 +41,12 @@ export default {
     },
   },
   asyncData({ req, store }) {
-    store.dispatch(
-      'SET_IS_MOBILE',
-      req.headers['user-agent'].includes('Mobile'),
-    )
+    if (process.client) {
+      store.dispatch(
+        'SET_IS_MOBILE',
+        req.headers['user-agent'].includes('Mobile'),
+      )
+    }
   },
   mounted() {
     this.$store.dispatch('GET_USD_CURRENCY')
